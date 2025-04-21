@@ -1,0 +1,79 @@
+<div class="container mt-5">
+    <!-- Header Section: Profile Info -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <div class="d-flex align-items-center">
+        <!-- Profile Image -->
+        <!-- <img *ngIf="employee?.profile_photo" [src]="employee?.profile_photo" alt="Profile Photo" class="rounded-circle" width="50" height="50"> -->
+        <div class="ms-3">
+          <!-- Employee Name and ID -->
+          <h5>{{ employee?.name }}</h5>
+          <p class="text-muted">Employee ID: {{ employee?.emp_id }}</p>
+        </div>
+      </div>
+
+      <!-- Logout Button -->
+      <button class="btn btn-outline-danger" (click)="logout()"> <i class="bi bi-box-arrow-right me-2"></i>Logout</button>
+    </div>
+  
+    <!-- Employee Info -->
+    <div *ngIf="!isLoading" class="row">
+      <!-- Employee Info Card -->
+      <div class="col-md-6">
+        <div class="card shadow-sm">
+          <div class="card-header bg-primary text-white">
+            <h5>Employee Information</h5>
+          </div>
+          <div class="card-body">
+            <!-- Reactive Form for Employee Information -->
+            <form [formGroup]="employeeForm">
+              <div class="mb-3">
+                <label for="emp_id" class="form-label">Employee ID</label>
+                <input id="emp_id" formControlName="emp_id" class="form-control" [disabled]="true">
+              </div>
+              <div class="mb-3">
+                <label for="name" class="form-label">Name</label>
+                <input id="name" formControlName="name" class="form-control" [disabled]="true">
+              </div>
+              <div class="mb-3">
+                <label for="department_name" class="form-label">Department</label>
+                <input id="department_name" formControlName="department_name" class="form-control" [disabled]="true">
+              </div>
+              <div class="mb-3">
+                <label for="skill" class="form-label">Primary Skill</label>
+                <input id="skill" formControlName="skill" class="form-control" [disabled]="true">
+              </div>
+              <div class="mb-3">
+                <label for="skill_level" class="form-label">Skill Level</label>
+                <input id="skill_level" formControlName="skill_level" class="form-control" [disabled]="true">
+              </div>
+              <div class="mb-3">
+                <label for="date_of_joining" class="form-label">Date of Joining</label>
+                <input id="date_of_joining" formControlName="date_of_joining" class="form-control" [disabled]="true">
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Additional Info: Training Link and Status -->
+      <div class="col-md-6 mt-4 mt-md-0">
+        <div class="card shadow-sm">
+          <div class="card-header bg-secondary text-white">
+            <h5>Additional Information</h5>
+          </div>
+          <div class="card-body">
+            <p><strong>Training Link:</strong> <a [href]="employee?.training_link" target="_blank" class="text-decoration-none">{{ employee?.training_link }}</a></p>
+            <p><strong>Status:</strong> {{ employee?.status }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Loading Spinner -->
+    <div *ngIf="isLoading" class="d-flex justify-content-center">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+  </div>
+  

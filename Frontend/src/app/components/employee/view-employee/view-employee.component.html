@@ -1,0 +1,68 @@
+
+<div class="container mt-4">
+    <table class="table table-striped table-hover table-bordered">
+      <thead class="table-danger">
+        <tr>
+          <th scope="col">No</th>
+          <th scope="col">EmployeeID</th>
+          <th scope="col">EmployeeName</th>
+          <th scope="col">DepartmentName</th>
+          <th scope="col">PrimarySkill</th>
+          <th scope="col">SkillLevel</th>
+          <th scope="col">DateOfJoining</th>
+          <th scope="col">AssignedTrainingLink</th>
+          <th scope="col">Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users; let i = index" class="align-middle" 
+            [ngClass]="{'table-active': i % 2 === 0}">
+          <th scope="row">{{ i + 1 }}</th>
+          <td>{{ user.EmployeeID }}</td>
+          <td>{{ user.EmployeeName }}</td>
+          <td>{{ user.DepartmentName }}</td>
+          <td>{{ user.PrimarySkill }}</td>
+          <td>{{ user.SkillLevel }}</td>
+          <td>{{ user.DateOfJoining  | date: 'MMMM d, yyyy'}}</td>
+          <td>{{ user.AssignedTrainingLink }}</td>
+          <td>{{ user.Status }}</td>
+          <!-- <td>
+            <span class="badge rounded-pill" 
+                  [ngClass]="{'bg-success': user.role === 'Admin', 
+                             'bg-info': user.role === 'Employee'}">
+              {{ user.role }}
+            </span>
+          </td> -->
+          <!-- <td>
+            <button class="btn btn-sm btn-outline-danger" 
+                    title="Delete" 
+                    (click)="deleteUser(user.id)" 
+                    [disabled]="deleteInProgress && deletingUserId === user.id">
+              <i *ngIf="!(deleteInProgress && deletingUserId === user.id)" class="bi bi-trash"></i>
+              <span *ngIf="deleteInProgress && deletingUserId === user.id" class="spinner-border spinner-border-sm" role="status">
+                <span class="visually-hidden">Deleting...</span>
+              </span>
+            </button>
+            
+            <button class="btn btn-sm btn-filled-warning" 
+                    title="Edit User" 
+                    (click)="editUser(user.id)">
+              <i class="bi bi-pencil"></i>
+            </button>
+          </td> -->
+        </tr>
+        <tr *ngIf="users.length === 0">
+          <td colspan="7" class="text-center py-4">
+            <p class="mb-0 text-muted">No users found</p>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    
+    <button class="btn btn-primary" (click)="loadUsers()">
+      <i class="bi bi-arrow-clockwise me-1"></i> Refresh
+    </button>
+  
+    <router-outlet></router-outlet>
+  </div>
+  

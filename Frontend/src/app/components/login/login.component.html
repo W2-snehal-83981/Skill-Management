@@ -1,0 +1,108 @@
+<div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card shadow">
+          <div class="card-header bg-primary text-white">
+            <h4 class="mb-0 text-center">Login</h4>
+          </div>
+          <div class="card-body">
+            <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+              {{ errorMessage }}
+            </div>
+  
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+              <!-- email -->
+              <div class="mb-3">
+                <label for="email" class="form-label">Email address</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  id="email"
+                  formControlName="email"
+                  placeholder="Enter your email"
+                  [ngClass]="{
+                    'is-invalid':
+                      loginForm.get('email')?.invalid &&
+                      (loginForm.get('email')?.dirty ||
+                        loginForm.get('email')?.touched)
+                  }"
+                />
+                <div
+                  class="invalid-feedback"
+                  *ngIf="loginForm.get('email')?.errors?.['required']"
+                >
+                  Email is required
+                </div>
+                <div
+                  class="invalid-feedback"
+                  *ngIf="loginForm.get('email')?.errors?.['email']"
+                >
+                  Please enter a valid email address
+                </div>
+              </div>
+  
+              <!-- password -->
+              <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input
+                  type="password"
+                  class="form-control"
+                  id="password"
+                  formControlName="password"
+                  placeholder="Enter your password"
+                  [ngClass]="{
+                    'is-invalid':
+                      loginForm.get('password')?.invalid &&
+                      (loginForm.get('password')?.dirty ||
+                        loginForm.get('password')?.touched)
+                  }"
+                />
+                <div
+                  class="invalid-feedback"
+                  *ngIf="loginForm.get('password')?.errors?.['required']"
+                >
+                  Password is required
+                </div>
+                <div
+                  class="invalid-feedback"
+                  *ngIf="loginForm.get('password')?.errors?.['minlength']"
+                >
+                  Password must be at least 6 characters
+                </div>
+                <p>
+                  <a
+                    routerLink="/reset-password"
+                    [queryParams]="{ email: loginForm.value.email }"
+                    >Forgot Password?</a
+                  >
+                </p>
+              </div>
+  
+              <div class="d-grid gap-2">
+                <button
+                  type="submit"
+                  class="btn btn-primary"
+                  [disabled]="loginForm.invalid || isLoading"
+                >
+                  <span
+                    *ngIf="isLoading"
+                    class="spinner-border spinner-border-sm me-2"
+                    role="status"
+                    aria-hidden="true"
+                  ></span>
+                  {{ isLoading ? "Logging in..." : "Login" }}
+                </button>
+              </div>
+  
+              <div class="mt-3 text-center">
+                <p class="mb-0">
+                  Don't have an account? <a routerLink="/register">Register</a>
+                </p>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

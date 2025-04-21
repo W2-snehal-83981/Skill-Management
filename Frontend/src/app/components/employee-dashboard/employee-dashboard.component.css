@@ -1,0 +1,33 @@
+/* Card and Form Styling */
+.card {
+    border-radius: 12px;
+  }
+  
+  .card-header {
+    border-radius: 12px 12px 0 0;
+  }
+  
+  button {
+    font-weight: bold;
+  }
+  
+  img {
+    object-fit: cover;
+    border: 2px solid #ddd;
+  }
+  
+  .spinner-border {
+    width: 3rem;
+    height: 3rem;
+  }
+  
+  /* .container {
+    display: flex;
+    flex-direction: column; /* Make sure children are stacked vertically 
+    height: 100vh; /* Ensure the container fills the entire viewport 
+  }
+  
+  .content {
+    flex: 1; /* Take up the remaining space 
+    padding: 20px;
+  } */
