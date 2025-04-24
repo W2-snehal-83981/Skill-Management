@@ -1,11 +1,15 @@
 const jwt = require('jsonwebtoken');
 
 exports.authenticate = (req,res,next) => {
-    const token = req.headers.authorization?.(" ")[1];
-    if(!token) return res.status(401).json({message: 'Access token required'});
+    const authHeader = req.headers.authorization;
+    if(!authHeader || !authHeader.startsWith("Bearer ")){
+        return res.status(401).json({message: 'Access token required'});
+    } 
+
+    const token = authHeader.split(' ')[1]; // Split "Bearer <token>"
 
     try{
-        const decoded = jwt.verify(token,process.emitWarning.JWT_SECRET);
+        const decoded = jwt.verify(token,process.env.JWT_SECRET);
         req.user = decoded;  // { emp_id, role }
         next();
     } catch (err) {

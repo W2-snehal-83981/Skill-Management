@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { updateEmployee, deleteEmployee, getEmployeeWithTraining, getEmployeeProfile, getEmployee } = require('../controllers/employeeController');
+const { updateEmployee, deleteEmployee, getEmployeeWithTraining, getEmployeeProfile, getAllSkills, updateStatus, getEmployeeByRole } = require('../controllers/employeeController');
 const  {auditRecord} = require('../controllers/auditController');
 
 const { authenticate, authorizeAdmin, authorizeSelfOrAdmin } = require('../middleware/authMiddleware');
@@ -13,10 +13,13 @@ const { authenticate, authorizeAdmin, authorizeSelfOrAdmin } = require('../middl
 
 router.delete('/delemp/:emp_id', deleteEmployee);
 router.put('/editemp/:emp_id',updateEmployee);
+router.put('/status/:emp_id',updateStatus);
 router.get('/admin_dashnoard', getEmployeeWithTraining);
 router.get('/:emp_id', getEmployeeProfile);
-// router.get('/',getEmployee);
+router.get('/role',getEmployeeByRole);
 router.get('/',getEmployeeWithTraining);
 router.post('/audit',auditRecord);
+router.get('/skills',getAllSkills);
+
 
 module.exports = router;

@@ -1,0 +1,63 @@
+<div class="row justify-content-center">
+  <div class="col-md-8 col-lg-6">
+    <div class="card shadow">
+      <div class="card-header bg-primary text-white">
+        <h3 class="mb-1">Edit Employee Data</h3>
+      </div>
+      <div class="card-body">
+          <form [formGroup]="employeeForm" (ngSubmit)="onSubmit()">
+            <div class="mb-3">
+              <label for="department" class="form-label">Department</label>
+              <!-- <input type="text" id="department" class="form-control" formControlName="DepartmentName"> -->
+              <select id="department" class="form-select" formControlName="department_name">
+                <option value="IT-Infrastructure">IT-Infrastructure</option>
+                <option value="IT-QA">IT-QA</option>
+                <option value="IT-Development">IT-Development</option>
+                <option value="IT-Application">IT-Application</option>
+                <option value="IT-Cloud">IT-Cloud</option>
+              </select>
+            </div>
+      
+            <div class="mb-3">
+              <label for="category" class="form-label">Skill Category</label>
+              <select id="category" class="form-select" formControlName="skill_category">
+                <option value="Backend">Backend</option>
+                <option value="Frontend">Frontend</option>
+                <option value="Cloud">Cloud</option>
+              </select>
+            </div>
+        
+            <div class="mb-3">
+              <label for="skill" class="form-label">Primary Skill</label>
+              <!-- <input type="text" id="skill" class="form-control" formControlName="PrimarySkill"> -->
+              <!-- <select id="skill" class="form-control" formControlName="PrimarySkill">
+                <option *ngFor = "let skill of skillOptions" [value]="skill">{{ skill }}</option>
+              </select> -->
+              <select id="skill" class="form-select" formControlName="skill">
+                <option value="React">React</option>
+                <option value="Nodejs">Nodejs</option>
+                <option value="Angular">Angular</option>
+                <option value="Java">Java</option>
+                <option value="AWS API Gateway">AWS API Gateway</option>
+              </select>
+            </div>
+        
+            <div class="mb-3">
+              <label for="level" class="form-label">Skill Level</label>
+              <select id="level" class="form-select" formControlName="skill_level">
+                <option value="Beginner">Beginner</option>
+                <option value="Intermediate">Intermediate</option>
+                <option value="Advanced">Advanced</option>
+              </select>
+            </div>
+        
+            <button type="submit" class="btn btn-primary" [disabled]="employeeForm.invalid">Update</button>
+            <button type="button" class="btn btn-secondary ms-2" (click)="cancelEdit()">Cancel</button>
+      
+          </form>
+      </div>
+    </div>
+  </div> 
+</div>   
+
+  

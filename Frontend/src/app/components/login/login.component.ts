@@ -11,6 +11,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
+  title = 'Employee Training Management';
   loginForm!: FormGroup;                         //using the '!' we assured the form is not empty.
   isLoading = false;                              
   errorMessage = '';
@@ -56,7 +57,7 @@ export class LoginComponent {
       }
       else{
         // this.router.navigateByUrl('/employee-dashboard');
-        this.router.navigate(['/employee-dashboard']);
+        this.router.navigate(['/employee-dashboard',userWithoutPassword.emp_id]); //passing id in route param, taking from response of backend
       }
       },
       error: (error) => {

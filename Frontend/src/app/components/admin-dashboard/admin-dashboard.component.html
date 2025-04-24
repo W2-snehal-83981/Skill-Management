@@ -2,7 +2,7 @@
     
     <div class="sidebar bg-dark text-white">
       <h1 class="dashboard-title p-3 text-center">
-        <i class="bi bi-speedometer2 me-2"></i>Dashboard
+        <i class="bi bi-speedometer2 me-2"></i>Admin Dashboard
       </h1>
       
       <nav>
@@ -10,7 +10,7 @@
           <li class="nav-item mb-2">
             <a 
               class="nav-link rounded-pill py-3 px-4"
-              [routerLink]="['/dashboard/add-user']"
+              [routerLink]="['/register']"
               routerLinkActive="active bg-primary"
             >
               <i class="bi bi-person-plus me-2"></i>ADD USER
@@ -32,7 +32,7 @@
     <div class="main-content">
       
       <div class="top-buttons-container position-absolute top-0 end-0 m-3 d-flex align-items-center">
-        
+
         <div class="date-container me-3 d-flex align-items-center">
           <span class="text-muted me-2">
             <i class="bi bi-calendar-check me-1"></i>Today:
@@ -42,7 +42,6 @@
           </span>
         </div>
   
-        
         <button 
           class="btn btn-outline-danger" 
           (click)="logout()">

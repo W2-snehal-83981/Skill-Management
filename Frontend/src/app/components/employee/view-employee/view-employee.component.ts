@@ -13,9 +13,6 @@ import { EmployeeService } from '../../../service/employee-service.service';
 })
 export class ViewEmployeeComponent {
   users: any[] = [];
-  isLoading: boolean = true;
-  errorMessage: string = '';
-  deleteInProgress: boolean = false;
   deletingUserId: number | null = null;
   private subscription: Subscription = new Subscription();
   
@@ -27,17 +24,12 @@ export class ViewEmployeeComponent {
   }
 
   loadUsers(): void {
-    this.isLoading = true;
-    this.errorMessage = '';
     this.subscription.add(
       this.employeeService.getAllEmployee().subscribe({
         next: (data: any) => {
           this.users = data;
-          this.isLoading = false;
         },
         error: (error) => {
-          this.errorMessage = 'Failed to load users. Please try again later.';
-          this.isLoading = false;
           console.error('Error fetching users:', error);
         }
       })
@@ -47,18 +39,14 @@ export class ViewEmployeeComponent {
   deleteUser(id: number): void {
     if (confirm('Are you sure you want to delete this user?')) {
       this.deletingUserId = id;
-      this.deleteInProgress = true;
       
       this.subscription.add(
         this.employeeService.deleteEmployee(id).subscribe({
           next: () => {
             this.loadUsers(); // Reload users after deletion
-            this.deleteInProgress = false;
             this.deletingUserId = null;
           },
           error: (error) => {
-            this.errorMessage = 'Failed to delete user. Please try again.';
-            this.deleteInProgress = false;
             this.deletingUserId = null;
             console.error('Error deleting user:', error);
           }
@@ -67,8 +55,8 @@ export class ViewEmployeeComponent {
     }
   }
 
-  editUser(id: number): void {
-    this.router.navigate(['edit-user', id], { relativeTo: this.route });
+  viewEmployee(employeeID:string){
+    this.router.navigate(['/employee-details',employeeID]);
   }
 
   ngOnDestroy(): void {

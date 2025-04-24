@@ -6,12 +6,16 @@ import { EmployeeDashboardComponent } from './components/employee-dashboard/empl
 import { ViewEmployeeComponent } from './components/employee/view-employee/view-employee.component';
 import { ResetPasswordComponent } from './components/login/reset-password/reset-password.component';
 import { RegisterComponent } from './components/employee/register/register.component';
+import { EditEmployeeComponent } from './components/employee/edit-employee/edit-employee.component';
+import { EmployeeDetailsComponent } from './components/employee/employee-details/employee-details.component';
 
 export const routes: Routes = [
     {path:'login', component :LoginComponent},
     {path:'admin-dashboard', component: AdminDashboardComponent, canActivate: [RoleGuardService], data: {expectedRole:'Admin'}},
-    {path:'employee-dashboard', component: EmployeeDashboardComponent, canActivate: [RoleGuardService], data: {expectedRole:'Employee'}},
+    {path:'employee-dashboard/:emp_id', component: EmployeeDashboardComponent, canActivate: [RoleGuardService], data: {expectedRole:'Employee'}},
     {path:'view-emp', component:ViewEmployeeComponent},
+    {path:'employee-details/:id',component:EmployeeDetailsComponent},
+    {path:'edit-employee/:id', component: EditEmployeeComponent},
     {path:'reset-password', component:ResetPasswordComponent},
     {path:'register',component:RegisterComponent},
     {path: '', redirectTo: '/login', pathMatch: 'full',}

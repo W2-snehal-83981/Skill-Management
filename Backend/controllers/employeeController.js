@@ -1,29 +1,34 @@
 const pool = require('../config/db');
+const { authenticate } = require('../middleware/authMiddleware');
 
 
 // Get Employee Profile by emp_id
-exports.getEmployeeProfile = async (req, res) => {
-  const { emp_id } = req.params;  // Get emp_id from request params
-
+exports.getEmployeeProfile =  async (req, res) => {
+  const { emp_id } = req.params;
   try {
     const result = await pool.query(`
       SELECT 
         e.emp_id AS "EmployeeID", 
         e.name AS "EmployeeName", 
         e.department_name AS "DepartmentName",  
+        e.skill_category AS "SkillCategory",
         e.skill AS "PrimarySkill", 
-        e.skill_level AS "SkillLevel"
+        e.skill_level AS "SkillLevel", 
+        e.date_of_joining AS "DateOfJoining", 
+        e.role AS "Role",
+        ta.training_link AS "AssignedTrainingLink", 
+        e.status AS "Status"
       FROM 
         Employee e
+      LEFT JOIN 
+        Training_Assign ta ON e.skill = ta.skill_name 
+        AND e.skill_level = ta.skill_level
       WHERE
-        e.emp_id = $1 AND e.isDeleted = false;
-    `, [emp_id]);  // Pass emp_id as a parameter to prevent SQL injection
-
-    if (result.rows.length === 0) {
-      return res.status(404).json({ message: "Employee not found or is deleted" });
-    }
-
-    res.json(result.rows[0]); 
+        e.isDeleted = false AND e.emp_id = $1
+      ORDER BY 
+        e.emp_id;
+    `,[emp_id]);
+    res.json(result.rows);  // Send back the query result
   } catch (err) {
     console.error(err.message);
     res.status(500).json({ error: err.message });
@@ -31,21 +36,9 @@ exports.getEmployeeProfile = async (req, res) => {
 };
 
 
-exports.getEmployee = async (req, res) => {
- // console.log("🔍 getEmployees route hit");
+exports.getEmployeeByRole = async (req, res) => {
   try {
-    const result = await pool.query(`
-      SELECT 
-        e.emp_id AS "EmployeeID", 
-        e.name AS "EmployeeName", 
-        e.department_name AS "DepartmentName",  
-        e.skill AS "PrimarySkill", 
-        e.skill_level AS "SkillLevel"
-      FROM 
-        Employee e
-     
-    `); 
-   // console.log("📦 Query result:", result.rows);
+    const result = await pool.query(`SELECT * FROM Employee where isDeleted=false AND role=$1`,[role]); 
     if (result.rows.length === 0) {
       return res.status(404).json({ message: "Employee not found" });
     }
@@ -61,8 +54,44 @@ exports.getEmployee = async (req, res) => {
 // Update employee
 exports.updateEmployee = async (req, res) => {
   const { emp_id } = req.params;
-  const {name, email, department_name, skill_category, skill,skill_level, status} = req.body;
-  console.log(emp_id);
+  const { department_name, skill_category, skill,skill_level} = req.body;
+  // console.log(emp_id);
+  try {
+    //console.log('Received Payload:', req.body);  // Check the data received in the backend
+    const employeeCheck = await pool.query(
+      `SELECT * FROM Employee WHERE emp_id = $1 AND isDeleted = false`,
+      [emp_id]
+    );
+    if (employeeCheck.rowCount === 0) {
+      return res.status(404).json({ message: "Employee not found or already deleted" });
+    }
+
+    await pool.query(`UPDATE Employee SET department_name=$1, skill_category=$2, skill=$3, skill_level=$4 WHERE emp_id=$5 RETURNING *`,
+       [ department_name, skill_category, skill,skill_level,emp_id]);
+       
+    res.json({ message: "Employee updated successfully" });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+//edit status
+exports.updateStatus = async (req, res) => {
+  console.log('Received emp_id:', req.params.emp_id);  // Log emp_id
+  console.log('Received status:', req.body.status);
+  const { emp_id } = req.params;
+  const { status} = req.body;
+  // console.log(emp_id);
+
+   // Validate status
+   const validStatuses = ['In Progress', 'Completed'];
+   if (!validStatuses.includes(status)) {
+     return res.status(400).json({
+       message: `Invalid status value. Valid values are: ${validStatuses.join(', ')}`,
+       providedStatus: status
+     });
+   }
+
   try {
     const employeeCheck = await pool.query(
       `SELECT * FROM Employee WHERE emp_id = $1 AND isDeleted = false`,
@@ -72,15 +101,16 @@ exports.updateEmployee = async (req, res) => {
       return res.status(404).json({ message: "Employee not found or already deleted" });
     }
 
-    await pool.query(`UPDATE Employee SET name=$1, email=$2, department_name=$3, skill_category=$4, skill=$5, skill_level=$6, status=$7 WHERE emp_id=$8`,
-       [name, email, department_name, skill_category, skill,skill_level, status,emp_id]);
+    await pool.query(`UPDATE Employee SET status=$1 WHERE emp_id=$2`,
+       [ status,emp_id]);
        
    
-    res.json({ message: "Employee updated successfully" });
+    res.json({ message: "Employee status updated successfully" });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 };
+
 
 // Soft delete employee (update isDeleted to true)
 exports.deleteEmployee = async (req, res) => {
@@ -113,6 +143,7 @@ exports.getEmployeeWithTraining = async (req, res) => {
         e.emp_id AS "EmployeeID", 
         e.name AS "EmployeeName", 
         e.department_name AS "DepartmentName",  
+        e.skill_category AS "SkillCategory",
         e.skill AS "PrimarySkill", 
         e.skill_level AS "SkillLevel", 
         e.date_of_joining AS "DateOfJoining", 
@@ -136,8 +167,33 @@ exports.getEmployeeWithTraining = async (req, res) => {
   }
 };
 
+
+exports.getAllSkills = async (req, res) => {
+  console.log("🔥 getAllSkills endpoint was hit");
+  try {
+    const result = await pool.query(`SELECT DISTINCT skill_name FROM Training_Assign`);
+    console.log('Full result object:', result);
+    console.log('Rows:', result.rows);
+    
+    if (result.rows.length === 0) {
+      return res.status(404).json({ message: 'No skills found' });
+    }
+
+    const skills = result.rows.map(row => row.skill_name);
+    res.json(skills);
+    res.json({
+      skills: skills,
+      message: `${skills.length} skills fetched`
+    });
+  } catch (error) {
+    console.error('Error fetching skills:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+
+
 //for audit table entry
-// exports.updateEmployee = async (req, res) => {
+//exports.updateEmployee = async (req, res) => {
 //   const { emp_id } = req.params;  // Get employee ID from the request params
 //   const { name, email, department_name, skill_category, skill, skill_level, status } = req.body;
   

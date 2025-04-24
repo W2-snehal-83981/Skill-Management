@@ -1,0 +1,26 @@
+<div class="container mt-4">
+    <div class="row">
+      <div class="col-12">
+        <h2 class="display-4 text-primary text-center">Employee Details</h2>
+        <div class="card shadow-sm">
+          <div class="card-header bg-primary text-white">
+            <h5 class="card-title">{{ employeeData.EmployeeName }}</h5>
+          </div>
+          <div class="card-body">
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item"><strong>Employee ID:</strong> {{ employeeData.EmployeeID }}</li>
+              <li class="list-group-item"><strong>Department:</strong> {{ employeeData.DepartmentName }}</li>
+              <li class="list-group-item"><strong>Skill Category:</strong> {{ employeeData.SkillCategory }}</li>
+              <li class="list-group-item"><strong>Primary Skill:</strong> {{ employeeData.PrimarySkill }}</li>
+              <li class="list-group-item"><strong>Skill Level:</strong> {{ employeeData.SkillLevel }}</li>
+              <li class="list-group-item"><strong>Date of Joining:</strong> {{ employeeData.DateOfJoining | date: 'MMMM d, yyyy' }}</li>
+              <li class="list-group-item"><strong>Role:</strong> {{ employeeData.Role }}</li>
+              <li class="list-group-item"><strong>Training Link:</strong> <a href="{{ employeeData.AssignedTrainingLink }}" target="_blank">View Training</a></li>
+              <li class="list-group-item"><strong>Status:</strong> {{ employeeData.Status }}</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

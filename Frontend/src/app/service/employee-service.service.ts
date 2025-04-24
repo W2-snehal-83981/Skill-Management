@@ -16,8 +16,8 @@ export class EmployeeService {
     return this.http.get(`${this.URL}/employees/`);
   }
 
-  getEmployeeById(id:number): Observable<any> {
-    return this.http.get(`${this.URL}/employees/:id`);
+  getEmployeeById(id:string): Observable<any> {
+    return this.http.get(`${this.URL}/employees/${id}`);
   }
 
   login(email:string,password:string): Observable<any> {
@@ -38,7 +38,16 @@ export class EmployeeService {
   }
 
   deleteEmployee(id:number) : Observable<any> {
-    return this.http.delete(`${this.URL}/deleteuser/${id}`);
+    return this.http.delete(`${this.URL}/employees/delemp/${id}`);
   }
 
+  updateEmployee(id: string, employeeData: any): Observable<any> {
+    console.log('updateEmployee:', { employeeData });
+    return this.http.put(`${this.URL}/employees/editemp/${id}`, employeeData);
+  }
+
+  updateStatus(id: string, status: any): Observable<any> {
+    console.log('Payload for updateEmployee:', { id, status });
+    return this.http.put(`${this.URL}/employees/status/${id}`, {status});
+  }
 }

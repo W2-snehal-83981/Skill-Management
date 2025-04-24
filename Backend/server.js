@@ -10,6 +10,11 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+app.use((req, res, next) => {
+    console.log("💥 Incoming Request:", req.method, req.url);  // Will log every request
+    next();  // Allow the request to continue
+});
+
 app.use('/auth',authRoutes);
 app.use('/employees', employeeRoutes);
 

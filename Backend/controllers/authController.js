@@ -73,23 +73,23 @@ exports.login = async (req,res) => {
 }
 
 exports.resetPassword = async (req,res) => {
-        const { email , newPassword, confirmPassword } = req.body;
+    const { email , newPassword, confirmPassword } = req.body;
     
-        if(newPassword != confirmPassword) {
-            return res.status(400).json({message: 'Password do not match'});
-        }
+    if(newPassword != confirmPassword) {
+        return res.status(400).json({message: 'Password do not match'});
+    }
     
-        try{
-            const result = await pool.query('select * from Employee where email =$1 AND isDeleted=$2', [email,false]);
-            const user = result.rows[0];
+    try{
+        const result = await pool.query('select * from Employee where email =$1 AND isDeleted=$2', [email,false]);
+        const user = result.rows[0];
     
-            if(!user) return res.status(404).json({message: 'Employee not found!'});
+        if(!user) return res.status(404).json({message: 'Employee not found!'});
     
-            await pool.query('update Employee set password=$1 where email=$2', [newPassword,email]);
-            res.status(200).json({message: 'Password has been reset successfully. Please login again.'});
-        } catch (error) {
-            console.error(error);
-            res.status(500).json({message: 'server error'});
-        }
-    };
+        await pool.query('update Employee set password=$1 where email=$2', [newPassword,email]);
+        res.status(200).json({message: 'Password has been reset successfully. Please login again.'});
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({message: 'server error'});
+    }
+};
     

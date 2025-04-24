@@ -11,16 +11,15 @@ import { EmployeeService } from '../../../service/employee-service.service';
   styleUrl: './register.component.css'
 })
 export class RegisterComponent {
-  userForm!: FormGroup;
+  employeeForm!: FormGroup;
   isSubmitting = false;
   submitSuccess = false;
   errorMessage = '';
-  roles = ['user'];
 
   constructor(
     private fb: FormBuilder,
     private employeeService: EmployeeService,
-    private router:Router
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -28,26 +27,28 @@ export class RegisterComponent {
   }
 
   initForm(): void {
-    this.userForm = this.fb.group({
+    this.employeeForm = this.fb.group({
+      emp_id:['', [Validators.required]],
       name: ['', [Validators.required, Validators.minLength(2)]],
-      age: ['', [Validators.required, Validators.min(18), Validators.max(100)]],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(8)]],
-      phone: ['', [Validators.required, Validators.pattern("^[0-9]{10,15}$")]],
-      country: ['', Validators.required],
-      role: ['',Validators.required]
+      password: ['', [Validators.required, Validators.minLength(4)]],
+      date_of_joining: ['', Validators.required],
+      department_name: [null, Validators.required],
+      skill_category: [null, Validators.required],
+      skill: [null, Validators.required],
+      skill_level: [null, Validators.required],
+      role: [null, Validators.required]
     });
   }
 
   get formControls() {
-    return this.userForm.controls;
+    return this.employeeForm.controls;
   }
 
   onSubmit(): void {
-    if (this.userForm.invalid) {
-      
+    if (this.employeeForm.invalid) {
       Object.keys(this.formControls).forEach(field => {
-        const control = this.userForm.get(field);
+        const control = this.employeeForm.get(field);
         control?.markAsTouched();
       });
       return;
@@ -55,27 +56,26 @@ export class RegisterComponent {
 
     this.isSubmitting = true;
     this.errorMessage = '';
-    
-    this.employeeService.addEmployee(this.userForm.value).subscribe({
+
+    this.employeeService.addEmployee(this.employeeForm.value).subscribe({
       next: (response) => {
         this.isSubmitting = false;
         this.submitSuccess = true;
-        this.userForm.reset();
+        this.employeeForm.reset();
         setTimeout(() => {
           this.submitSuccess = false;
         }, 3000);
       },
       error: (error) => {
         this.isSubmitting = false;
-        this.errorMessage = error.message || 'An error occurred while adding the user. Please try again.';
+        this.errorMessage = error.message || 'An error occurred while registering the employee. Please try again.';
       }
     });
   }
-
   resetForm(): void {
-    this.userForm.reset();
-    this.userForm.patchValue({         //the patchValue is the inbuild method which always reset the value of role feild to user.
-      role: 'User'
+    this.employeeForm.reset();
+    this.employeeForm.patchValue({         //the patchValue is the inbuild method which always reset the value of role feild to user.
+      role: 'Employee'
     });
     this.errorMessage = '';
   }

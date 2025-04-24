@@ -1,8 +1,12 @@
 ###get Employee
 GET http://localhost:3000/employees/
 
+###get Employee by role
+GET http://localhost:3000/employees/role
+
 ###get employeeByid
-GET http://localhost:3000/employees/EMP002
+GET http://localhost:3000/employees/EMP01
+//Authorization: Bearer <eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXBfaWQiOiJFTVAwMSIsInJvbGUiOiJFbXBsb3llZSIsImlhdCI6MTc0NTMxNzIyNywiZXhwIjoxNzQ1NDAzNjI3fQ.dJ9d0CTk5sPHpkA5FLk0Q6J5GigQCIGY0jh9MNj2Lmg>
 
 ###Add employee
 POST http://localhost:3000/auth/register
@@ -27,8 +31,8 @@ POST http://localhost:3000/auth/login
 Content-Type: application/json
 
 {
-  "email": "sharvary@gmail.com",
-  "password": "sharvary"
+  "email": "snehal@gmail.com",
+  "password": "snehal"
 }
 
 ###reset password
@@ -44,16 +48,21 @@ Content-Type: application/json
 
 
 ###edit employee
-PUT http://localhost:3000/employees/editemp/EMP001
+PUT http://localhost:3000/employees/editemp/EMP01
 Content-Type: application/json
 
 {
-  "name": "Alice",
-  "email": "alice@gmail.com",
   "department_name": "IT-Application",
   "skill_category": "Frontend",
   "skill": "React",
-  "skill_level": "Beginner",
+  "skill_level": "Intermediate"
+}
+
+###edit status
+PUT http://localhost:3000/employees/status/EMP01
+Content-Type: application/json
+
+{
   "status": "Completed"
 }
 
@@ -72,3 +81,6 @@ Content-Type: application/json
   "changed_by": "admin",
   "description": "Updated skill level from Beginner to Intermediate"
 }
+
+###distinct skills
+GET http://localhost:3000/employees/skills

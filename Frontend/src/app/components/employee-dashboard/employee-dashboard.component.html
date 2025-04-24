@@ -1,79 +1,106 @@
 <div class="container mt-5">
-    <!-- Header Section: Profile Info -->
-    <div class="d-flex justify-content-between align-items-center mb-4">
-      <div class="d-flex align-items-center">
-        <!-- Profile Image -->
-        <!-- <img *ngIf="employee?.profile_photo" [src]="employee?.profile_photo" alt="Profile Photo" class="rounded-circle" width="50" height="50"> -->
-        <div class="ms-3">
-          <!-- Employee Name and ID -->
-          <h5>{{ employee?.name }}</h5>
-          <p class="text-muted">Employee ID: {{ employee?.emp_id }}</p>
-        </div>
+  <div class="dashboard-container">
+    
+    <div class="sidebar bg-dark text-white">
+      <h1 class="dashboard-title p-3 text-center">
+        <i class="bi bi-speedometer2 me-2"></i>Employee Dashboard
+      </h1>
+  </div>
+  <!-- Profile Info -->
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <div class="d-flex align-items-center">
+      <!-- Profile Image -->
+      <!-- <img *ngIf="employee?.profile_photo" [src]="employee?.profile_photo" alt="Profile Photo" class="rounded-circle" width="50" height="50"> -->
+    
+      <div class="ms-3">
+        <!-- Employee Name and ID -->
+        <h5>{{ employee.EmployeeName }}</h5>
+        <p class="text-muted">Employee ID: {{ employee?.EmployeeID }}</p>
       </div>
+    </div>
 
-      <!-- Logout Button -->
-      <button class="btn btn-outline-danger" (click)="logout()"> <i class="bi bi-box-arrow-right me-2"></i>Logout</button>
+    <div class="date-container me-3 d-flex align-items-center">
+      <span class="text-muted me-2">
+        <i class="bi bi-calendar-check me-1"></i>Today:
+      </span>
+      <span class="fw-bold">
+        {{ 'fullDate' | todayDate }}
+      </span>
     </div>
-  
-    <!-- Employee Info -->
-    <div *ngIf="!isLoading" class="row">
-      <!-- Employee Info Card -->
-      <div class="col-md-6">
-        <div class="card shadow-sm">
-          <div class="card-header bg-primary text-white">
-            <h5>Employee Information</h5>
-          </div>
-          <div class="card-body">
-            <!-- Reactive Form for Employee Information -->
-            <form [formGroup]="employeeForm">
-              <div class="mb-3">
-                <label for="emp_id" class="form-label">Employee ID</label>
-                <input id="emp_id" formControlName="emp_id" class="form-control" [disabled]="true">
-              </div>
-              <div class="mb-3">
-                <label for="name" class="form-label">Name</label>
-                <input id="name" formControlName="name" class="form-control" [disabled]="true">
-              </div>
-              <div class="mb-3">
-                <label for="department_name" class="form-label">Department</label>
-                <input id="department_name" formControlName="department_name" class="form-control" [disabled]="true">
-              </div>
-              <div class="mb-3">
-                <label for="skill" class="form-label">Primary Skill</label>
-                <input id="skill" formControlName="skill" class="form-control" [disabled]="true">
-              </div>
-              <div class="mb-3">
-                <label for="skill_level" class="form-label">Skill Level</label>
-                <input id="skill_level" formControlName="skill_level" class="form-control" [disabled]="true">
-              </div>
-              <div class="mb-3">
-                <label for="date_of_joining" class="form-label">Date of Joining</label>
-                <input id="date_of_joining" formControlName="date_of_joining" class="form-control" [disabled]="true">
-              </div>
-            </form>
-          </div>
+
+    <!-- Logout Button -->
+    <button class="btn btn-outline-danger" (click)="logout()"> <i class="bi bi-box-arrow-right me-2"></i>Logout</button>
+  </div>
+
+  <!-- Employee Info  -->
+  <div *ngIf="!isLoading" class="row">
+    
+    <div class="col-md-6">
+      <div class="card shadow-sm mb-4">
+        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+          <h5 class="mb-0">Employee Information</h5>
+          <button class="btn btn-sm btn-light" (click)="goToEdit(employee.EmployeeID)">
+            <i class="bi bi-pencil"></i>
+          </button>
         </div>
-      </div>
-  
-      <!-- Additional Info: Training Link and Status -->
-      <div class="col-md-6 mt-4 mt-md-0">
-        <div class="card shadow-sm">
-          <div class="card-header bg-secondary text-white">
-            <h5>Additional Information</h5>
-          </div>
-          <div class="card-body">
-            <p><strong>Training Link:</strong> <a [href]="employee?.training_link" target="_blank" class="text-decoration-none">{{ employee?.training_link }}</a></p>
-            <p><strong>Status:</strong> {{ employee?.status }}</p>
+        
+        <div class="card-body">
+        
+          <div class="row">
+            <div class="col-md-6">
+              <p><strong>Employee ID:</strong> {{ employee?.EmployeeID}}</p>
+            </div>
+            <div class="col-md-6">
+              <p><strong>Name:</strong> {{ employee?.EmployeeName }}</p>
+            </div>
+            <div class="col-md-6">
+              <p><strong>Department:</strong> {{ employee?.DepartmentName }}</p>
+            </div>
+            <div class="col-md-6">
+              <p><strong>Skill Category:</strong> {{ employee?.SkillCategory }}</p>
+            </div>
+            <div class="col-md-6">
+              <p><strong>Primary Skill:</strong> {{ employee?.PrimarySkill }}</p>
+            </div>
+            <div class="col-md-6">
+              <p><strong>Skill Level:</strong> {{ employee?.SkillLevel }}</p>
+            </div>
+            <div class="col-md-6">
+              <p><strong>Date of Joining:</strong> {{ employee?.DateOfJoining | date }}</p>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  
-    <!-- Loading Spinner -->
-    <div *ngIf="isLoading" class="d-flex justify-content-center">
-      <div class="spinner-border text-primary" role="status">
-        <span class="visually-hidden">Loading...</span>
+
+    <!-- Additional Info: Training Link and Status -->
+    <div class="col-md-6">
+      <div class="card shadow-sm">
+        <div class="card-header bg-secondary text-white">
+          <h5>Additional Information</h5>
+        </div>
+       
+        <div class="card-body">
+          <p><strong>Training Link:</strong> <a [href]="employee?.AssignedTrainingLink" target="_blank" class="text-decoration-none">{{ employee?.AssignedTrainingLink }}</a></p>
+
+          <p><strong>Status:</strong> 
+            <span>{{ employee?.Status }}</span> 
+          </p>
+            <form [formGroup]="statusForm">
+              <select formControlName="status" (change)="updateStatus()" class="form-control">
+                <option value="In Progress">In Progress</option>
+                <option value="Completed">Completed</option>
+              </select>
+            </form>   
+        </div>
       </div>
     </div>
   </div>
-  
+
+  <!-- Loading Spinner -->
+  <div *ngIf="isLoading" class="d-flex justify-content-center">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+</div>
