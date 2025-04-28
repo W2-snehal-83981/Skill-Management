@@ -151,5 +151,68 @@
 }
 
 
+.dashboard-container {
+  display: flex;
+}
 
+.sidebar {
+  width: 250px;
+  background-color: #343a40; /* Dark background */
+  color: white;
+  padding: 20px;
+  position: relative;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between; /* Space between title and employee info */
+  align-items: center; /* Vertically align items */
+}
+
+.dashboard-title {
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+}
+
+.employee-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  font-size: 14px;
+  text-align: right;
+}
+
+.employee-item {
+  margin: 5px 0;
+}
+
+.employee-item strong {
+  margin-right: 5px; /* Add space between label and value */
+}
+
+.employee-item span {
+  font-weight: normal; /* Style for value */
+}
+
+.main-content {
+  flex: 1;
+  margin-left: 250px; /* Offset for sidebar */
+  padding: 20px;
+}
+
+.top-buttons-container {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 100;
+}
+
+.date-container {
+  font-size: 14px;
+}
+
+.btn-outline-danger {
+  border-color: #dc3545;
+}
 

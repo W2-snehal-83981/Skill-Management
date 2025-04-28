@@ -2,10 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EmployeeService } from '../../../service/employee-service.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-edit-employee',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule,CommonModule],
   templateUrl: './edit-employee.component.html',
   styleUrl: './edit-employee.component.css'
 })
@@ -14,6 +15,7 @@ export class EditEmployeeComponent implements OnInit {
   employeeForm!: FormGroup;
   empId!: string;
   isLoading = true;
+  skillOptions:any= [];
 
   constructor(
     private route: ActivatedRoute,
@@ -55,6 +57,7 @@ export class EditEmployeeComponent implements OnInit {
         this.router.navigate(['/employee-dashboard',this.empId]);
       }
     });
+    this.fetchSkills();
   }
 
   onSubmit(): void {
@@ -82,17 +85,17 @@ export class EditEmployeeComponent implements OnInit {
     this.router.navigate(['/employee-dashboard', this.empId]);
   }
 
-
-// onEditEmployee(empId: string) {
-//   this.(empId);
-//   this.fetchSkills(); // Call this to load skill options
-// }
-
-// fetchSkills() {
-//   this.http.get<string[]>('/api/skills').subscribe((skills) => {
-//     this.skillOptions = skills;
-//   });
-// }
+fetchSkills() {
+ this.employeeService.getAllSkills().subscribe({
+  next: (skills) => {
+    this.skillOptions = skills;
+    console.log('Fetched skills:', skills);
+  },
+  error: (err) => {
+    console.error('Failed to fetch skills', err);
+  }
+ });
+}
 
   
 }

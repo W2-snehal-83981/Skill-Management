@@ -3,23 +3,32 @@ const router = express.Router();
 const { updateEmployee, deleteEmployee, getEmployeeWithTraining, getEmployeeProfile, getAllSkills, updateStatus, getEmployeeByRole } = require('../controllers/employeeController');
 const  {auditRecord} = require('../controllers/auditController');
 
-const { authenticate, authorizeAdmin, authorizeSelfOrAdmin } = require('../middleware/authMiddleware');
+//const { authenticate, authorizeAdmin, authorizeSelfOrAdmin } = require('../middleware/authMiddleware');
+
+router.get('/admin_dashnoard', getEmployeeWithTraining);  //to show admin dashboard
+
+router.get('/filter',getEmployeeByRole);   //get emp by role
+
+router.get('/',getEmployeeWithTraining);  
+
+router.get('/skills',getAllSkills);  //get all skills from table
+
+router.get('/:emp_id', getEmployeeProfile);  //get emp by id
+
+router.put('/status/:emp_id',updateStatus);     //update status
+
+router.put('/editemp/:emp_id',updateEmployee);  //update emp
+
+router.delete('/delemp/:emp_id', deleteEmployee);  //delete employee
+//router.post('/audit',auditRecord);  //for audit
+
+
 
 // Update - only self or admin
 // router.put('/:emp_id', authenticate, authorizeSelfOrAdmin, updateEmployee);
 
 // Delete - only admin
 // router.delete('/:emp_id', authenticate, authorizeAdmin, deleteEmployee);
-
-router.delete('/delemp/:emp_id', deleteEmployee);
-router.put('/editemp/:emp_id',updateEmployee);
-router.put('/status/:emp_id',updateStatus);
-router.get('/admin_dashnoard', getEmployeeWithTraining);
-router.get('/:emp_id', getEmployeeProfile);
-router.get('/role',getEmployeeByRole);
-router.get('/',getEmployeeWithTraining);
-router.post('/audit',auditRecord);
-router.get('/skills',getAllSkills);
 
 
 module.exports = router;

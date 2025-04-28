@@ -4,7 +4,7 @@
       <h1 class="dashboard-title p-3 text-center">
         <i class="bi bi-speedometer2 me-2"></i>Admin Dashboard
       </h1>
-      
+
       <nav>
         <ul class="nav nav-pills flex-column p-2">
           <li class="nav-item mb-2">
@@ -29,8 +29,24 @@
       </nav>
     </div>
     
+    <!-- <div class="employee-info d-flex flex-column align-items-end">
+      <p><strong>Profile</strong></p>
+      <div class="employee-item">
+        <strong>Employee ID:</strong> <span>{{ employee.EmployeeID }}</span>
+      </div>
+      <div class="employee-item">
+        <strong>Employee Name:</strong> <span>{{ employee.EmployeeName }}</span>
+      </div>
+    </div> -->
+    <div class="ms-3">
+      <!-- Employee Name and ID -->
+      <h5>{{ employee.EmployeeName }}</h5>
+      <p class="text-muted">Employee ID: {{ employee?.EmployeeID }}</p>
+    </div>
+
+
+
     <div class="main-content">
-      
       <div class="top-buttons-container position-absolute top-0 end-0 m-3 d-flex align-items-center">
 
         <div class="date-container me-3 d-flex align-items-center">

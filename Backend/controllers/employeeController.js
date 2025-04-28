@@ -35,13 +35,19 @@ exports.getEmployeeProfile =  async (req, res) => {
   }
 };
 
-
+//get emolpyee by role
 exports.getEmployeeByRole = async (req, res) => {
+  const {role} = req.query;
+  console.log(req.query);
+
+  if(!role){
+    return res.status(400).json({message:'role is required'});
+  }
+
   try {
-    const result = await pool.query(`SELECT * FROM Employee where isDeleted=false AND role=$1`,[role]); 
-    if (result.rows.length === 0) {
-      return res.status(404).json({ message: "Employee not found" });
-    }
+    const result = role 
+            ? await pool.query('SELECT * FROM Employee where isDeleted=false AND role=$1', [role])  // Filter users by role
+            : await pool.query('SELECT * FROM Employee');  // If no role is passed, return all users
 
     res.json(result.rows); 
   } catch (err) {
@@ -167,9 +173,8 @@ exports.getEmployeeWithTraining = async (req, res) => {
   }
 };
 
-
+//get all skills from table
 exports.getAllSkills = async (req, res) => {
-  console.log("🔥 getAllSkills endpoint was hit");
   try {
     const result = await pool.query(`SELECT DISTINCT skill_name FROM Training_Assign`);
     console.log('Full result object:', result);
@@ -181,10 +186,10 @@ exports.getAllSkills = async (req, res) => {
 
     const skills = result.rows.map(row => row.skill_name);
     res.json(skills);
-    res.json({
-      skills: skills,
-      message: `${skills.length} skills fetched`
-    });
+    // res.json({
+    //   skills: skills,
+    //   message: `${skills.length} skills fetched`
+    // });
   } catch (error) {
     console.error('Error fetching skills:', error);
     res.status(500).json({ message: 'Server error' });

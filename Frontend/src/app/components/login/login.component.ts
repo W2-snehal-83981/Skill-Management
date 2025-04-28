@@ -53,7 +53,7 @@ export class LoginComponent {
       localStorage.setItem('token',response.token);  //after login token store in localstorage
       
       if(response.role === 'Admin'){
-        this.router.navigate(['/admin-dashboard']);
+        this.router.navigate(['/admin-dashboard', userWithoutPassword.emp_id]);
       }
       else{
         // this.router.navigateByUrl('/employee-dashboard');

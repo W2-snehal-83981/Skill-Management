@@ -49,17 +49,25 @@
     <div class="row">
       <div class="col-12 text-center mb-4">
         <h2 class="display-4 text-primary">Employee List</h2>
+        <form [formGroup]="roleForm" class="d-flex">
+          <select id="roleFilter" class="form-control" formControlName="role" (change)="filterEmployees()" style="max-width:200px; margin-left:20px;">
+            <option value="">All Roles</option>
+            <option value="Admin">Admin</option>
+            <option value="Employee">Employee</option>
+          </select>
+        </form>
       </div>
     </div>
   
     <!-- Employee Cards -->
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-
-      <div class="col" *ngFor="let user of users; let i = index">
+      <div class="col" *ngFor="let user of users; let i = index">   
         <div class="card shadow-sm h-100">
           <div class="card-header bg-primary text-white">
             <h5 class="card-title">{{ user.EmployeeName }}</h5>
           </div>
+
+          
           <div class="card-body">
             <ul class="list-group list-group-flush">
               <li class="list-group-item"><strong>Employee ID:</strong> {{ user.EmployeeID }}</li>

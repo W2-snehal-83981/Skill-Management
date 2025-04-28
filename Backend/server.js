@@ -24,6 +24,6 @@ app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
 });
 
-
+  
 // pass this while request
 // Authorization: Bearer <JWT_TOKEN>

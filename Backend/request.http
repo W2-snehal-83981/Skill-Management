@@ -1,12 +1,14 @@
 ###get Employee
 GET http://localhost:3000/employees/
 
-###get Employee by role
-GET http://localhost:3000/employees/role
-
 ###get employeeByid
 GET http://localhost:3000/employees/EMP01
 //Authorization: Bearer <eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXBfaWQiOiJFTVAwMSIsInJvbGUiOiJFbXBsb3llZSIsImlhdCI6MTc0NTMxNzIyNywiZXhwIjoxNzQ1NDAzNjI3fQ.dJ9d0CTk5sPHpkA5FLk0Q6J5GigQCIGY0jh9MNj2Lmg>
+
+###get Employee by role
+GET http://localhost:3000/employees/filter?role=Admin
+Content-Type:  application/json
+
 
 ###Add employee
 POST http://localhost:3000/auth/register

@@ -11,12 +11,12 @@ import { EmployeeDetailsComponent } from './components/employee/employee-details
 
 export const routes: Routes = [
     {path:'login', component :LoginComponent},
-    {path:'admin-dashboard', component: AdminDashboardComponent, canActivate: [RoleGuardService], data: {expectedRole:'Admin'}},
+    {path:'admin-dashboard/:emp_id', component: AdminDashboardComponent, canActivate: [RoleGuardService], data: {expectedRole:'Admin'}},
     {path:'employee-dashboard/:emp_id', component: EmployeeDashboardComponent, canActivate: [RoleGuardService], data: {expectedRole:'Employee'}},
     {path:'view-emp', component:ViewEmployeeComponent},
     {path:'employee-details/:id',component:EmployeeDetailsComponent},
     {path:'edit-employee/:id', component: EditEmployeeComponent},
     {path:'reset-password', component:ResetPasswordComponent},
     {path:'register',component:RegisterComponent},
-    {path: '', redirectTo: '/login', pathMatch: 'full',}
+    {path: '', redirectTo: '/login', pathMatch: 'full'}
 ];

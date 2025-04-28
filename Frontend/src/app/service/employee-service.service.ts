@@ -11,7 +11,7 @@ export class EmployeeService {
 
   constructor(private http: HttpClient) { }
 
-    //get all users
+  //get all users
   getAllEmployee():Observable<any> {
     return this.http.get(`${this.URL}/employees/`);
   }
@@ -42,12 +42,20 @@ export class EmployeeService {
   }
 
   updateEmployee(id: string, employeeData: any): Observable<any> {
-    console.log('updateEmployee:', { employeeData });
+    //console.log('updateEmployee:', { employeeData });
     return this.http.put(`${this.URL}/employees/editemp/${id}`, employeeData);
   }
 
   updateStatus(id: string, status: any): Observable<any> {
-    console.log('Payload for updateEmployee:', { id, status });
+    //console.log('Payload for updateEmployee:', { id, status });
     return this.http.put(`${this.URL}/employees/status/${id}`, {status});
+  }
+
+  getEmployeeByRole(role:string) : Observable<any> {
+    return this.http.get(`${this.URL}/employees/filter?role=${role}`);
+  }
+
+  getAllSkills(): Observable <any> {
+    return this.http.get(`${this.URL}/employees/skills`);
   }
 }
