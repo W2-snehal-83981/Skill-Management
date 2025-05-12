@@ -1,0 +1,112 @@
+###get Employee
+GET http://localhost:3000/admin/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXBfaWQiOiJFTVAwMDciLCJyb2xlIjoiQWRtaW4iLCJpYXQiOjE3NDU4Mzc1MTQsImV4cCI6MTc0NTkyMzkxNH0.OqnTK7YrYi1qSszLrDZYWQvNRW3eFp6NZQj3yfqHPIM
+
+###get employeeByid
+GET http://localhost:3000/admin/employee/EMP001
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXBfaWQiOiJFTVAwMTAiLCJyb2xlIjoiRW1wbG95ZWUiLCJpYXQiOjE3NDY1MzA2NzUsImV4cCI6MTc0NjYxNzA3NX0.PZ3Cbg5kRDwBjbttZ0vfyeUPWPUfmzQUXqQBEgwe1WQ
+
+
+###Add employee
+POST http://localhost:3000/auth/register
+Content-Type: application/json
+
+{
+  "emp_id": "EMP02",
+  "name": "Kisok",
+  "email": "kisok@gmail.com",
+  "password": "kisok",
+  "date_of_joining": "2025-01-13",
+  "department_name": "IT-QA",
+  "skill_category": "Backend",
+  "skill": "Nodejs",
+  "skill_level": "Intermediate",
+  "role": "Admin",
+  "status": "In Progress"
+}
+
+###Login
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+  "email": "snehal@gmail.com",
+  "password": "snehal123"
+}
+
+
+###edit employee
+PUT http://localhost:3000/admin/updateEmp/EMP001
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXBfaWQiOiJFTVAwMDciLCJyb2xlIjoiQWRtaW4iLCJpYXQiOjE3NDUzMDY0MTUsImV4cCI6MTc0NTM5MjgxNX0.8HhMoKnkXhb5j1ohGATh6-ygmYXw3DKdhngOZQqlU4A
+
+{
+  "newSkill":"Nodejs",
+  "newSkillLevel":"Beginner"
+}
+
+###delete employee
+DELETE http://localhost:3000/admin/deleteEmp/EMP05
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXBfaWQiOiJFTVAwMDciLCJyb2xlIjoiQWRtaW4iLCJpYXQiOjE3NDUzMDY0MTUsImV4cCI6MTc0NTM5MjgxNX0.8HhMoKnkXhb5j1ohGATh6-ygmYXw3DKdhngOZQqlU4A
+
+
+#### Updating the level of Skill
+PUT http://localhost:3000/admin/updateLev/EMP001
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXBfaWQiOiJFTVAwMDciLCJyb2xlIjoiQWRtaW4iLCJpYXQiOjE3NDUzMDY0MTUsImV4cCI6MTc0NTM5MjgxNX0.8HhMoKnkXhb5j1ohGATh6-ygmYXw3DKdhngOZQqlU4A
+
+
+####get all employees completed training
+GET http://localhost:3000/admin/ctbe
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXBfaWQiOiJFTVAwMDciLCJyb2xlIjoiQWRtaW4iLCJpYXQiOjE3NDUzMDY0MTUsImV4cCI6MTc0NTM5MjgxNX0.8HhMoKnkXhb5j1ohGATh6-ygmYXw3DKdhngOZQqlU4A
+
+
+####get completed trining for the employee by itd id
+GET http://localhost:3000/admin/cotrbi/EMP002
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXBfaWQiOiJFTVAwMDciLCJyb2xlIjoiQWRtaW4iLCJpYXQiOjE3NDUzMDY0MTUsImV4cCI6MTc0NTM5MjgxNX0.8HhMoKnkXhb5j1ohGATh6-ygmYXw3DKdhngOZQqlU4A
+
+
+###
+GET  http://localhost:3000/auth/getDepartment
+
+
+###
+PUT http://localhost:3000/admin/chgpassword/EMP010
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXBfaWQiOiJFTVAwMDciLCJyb2xlIjoiQWRtaW4iLCJpYXQiOjE3NDYxODcyOTgsImV4cCI6MTc0NjI3MzY5OH0.oBbQp9paKBMTaYtaRIG1WaFpNmk-DMcW41oxVTE09L8
+
+{
+  "old_password": "kisok",
+  "new_password": "misok"
+}
+
+
+###
+PUT http://localhost:3000/employees/editempClient/EMP010
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXBfaWQiOiJFTVAwMTAiLCJyb2xlIjoiRW1wbG95ZWUiLCJpYXQiOjE3NDY1MjUzMDIsImV4cCI6MTc0NjYxMTcwMn0.QK5AT5Siw-0w_nQod-j8VwbBbJxGLVz74A-pUvuKqQM
+Content-Type: application/json
+ 
+{
+  "department_name": "IT-QA",
+  "skill_category": "Backend",
+  "skill": "Nodejs",
+  "skill_level": "Intermediate"
+}
+ 
+###edit status
+PUT http://localhost:3000/employees/status/EMP010
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXBfaWQiOiJFTVAwMTAiLCJyb2xlIjoiRW1wbG95ZWUiLCJpYXQiOjE3NDY1MjUzMDIsImV4cCI6MTc0NjYxMTcwMn0.QK5AT5Siw-0w_nQod-j8VwbBbJxGLVz74A-pUvuKqQM
+Content-Type: application/json
+ 
+{
+  "status": "Completed"
+}
+ 
+
+###
+GET http://localhost:3000/employees/client/EMP010
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXBfaWQiOiJFTVAwMTAiLCJyb2xlIjoiRW1wbG95ZWUiLCJpYXQiOjE3NDY1MzA2NzUsImV4cCI6MTc0NjYxNzA3NX0.PZ3Cbg5kRDwBjbttZ0vfyeUPWPUfmzQUXqQBEgwe1WQ
+
+
+###
+GET http://localhost:3000/employees/skills
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXBfaWQiOiJFTVAwMTAiLCJyb2xlIjoiRW1wbG95ZWUiLCJpYXQiOjE3NDY1MzA2NzUsImV4cCI6MTc0NjYxNzA3NX0.PZ3Cbg5kRDwBjbttZ0vfyeUPWPUfmzQUXqQBEgwe1WQ

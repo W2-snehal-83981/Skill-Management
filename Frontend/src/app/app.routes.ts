@@ -8,6 +8,7 @@ import { ResetPasswordComponent } from './components/login/reset-password/reset-
 import { RegisterComponent } from './components/employee/register/register.component';
 import { EditEmployeeComponent } from './components/employee/edit-employee/edit-employee.component';
 import { EmployeeDetailsComponent } from './components/employee/employee-details/employee-details.component';
+import { AuditComponent } from './components/audit/audit.component';
 
 export const routes: Routes = [
     {path:'login', component :LoginComponent},
@@ -18,5 +19,6 @@ export const routes: Routes = [
     {path:'edit-employee/:id', component: EditEmployeeComponent},
     {path:'reset-password', component:ResetPasswordComponent},
     {path:'register',component:RegisterComponent},
+    {path:'audit',component:AuditComponent},
     {path: '', redirectTo: '/login', pathMatch: 'full'}
 ];

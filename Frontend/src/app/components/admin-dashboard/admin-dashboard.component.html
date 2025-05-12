@@ -16,6 +16,7 @@
               <i class="bi bi-person-plus me-2"></i>ADD USER
             </a>
           </li>
+
           <li class="nav-item mb-2">
             <a 
               class="nav-link rounded-pill py-3 px-4"
@@ -23,6 +24,16 @@
               routerLinkActive="active bg-primary"
             >
               <i class="bi bi-people me-2"></i>GET ALL USERS
+            </a>
+          </li>
+
+          <li class="nav-item mb-2">
+            <a 
+              class="nav-link rounded-pill py-3 px-4"
+              [routerLink]="['/audit']"
+              routerLinkActive="active bg-primary"
+            >
+              <i class="bi bi-people me-2"></i>AUDIT LOGS
             </a>
           </li>
         </ul>

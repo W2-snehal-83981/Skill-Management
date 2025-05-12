@@ -64,14 +64,14 @@
       <div class="col" *ngFor="let user of users; let i = index">   
         <div class="card shadow-sm h-100">
           <div class="card-header bg-primary text-white">
-            <h5 class="card-title">{{ user.EmployeeName }}</h5>
+            <h5 class="card-title">{{ user.EmployeeName || user.name }}</h5>
           </div>
 
           
           <div class="card-body">
             <ul class="list-group list-group-flush">
-              <li class="list-group-item"><strong>Employee ID:</strong> {{ user.EmployeeID }}</li>
-              <li class="list-group-item"><strong>Department:</strong> {{ user.DepartmentName }}</li>
+               <li class="list-group-item"><strong>Employee ID:</strong> {{ user.EmployeeID || user.emp_id }}</li> <!-- using or becoz conflicting in response -->
+              <li class="list-group-item"><strong>Department:</strong> {{ user.DepartmentName || user.department_name }}</li>
               <!-- <li class="list-group-item"><strong>Skill Category:</strong> {{ user.SkillCategory }}</li>
               <li class="list-group-item"><strong>Primary Skill:</strong> {{ user.PrimarySkill }}</li>
               <li class="list-group-item"><strong>Skill Level:</strong> {{ user.SkillLevel }}</li>
@@ -85,7 +85,7 @@
             <button class="btn btn-outline-danger btn-sm" (click)="deleteUser(user.EmployeeID)">Delete</button>
           </div>
         </div>
-      </div>
+            </div>
   
       <!-- If no users found -->
       <div *ngIf="users.length === 0" class="col-12">

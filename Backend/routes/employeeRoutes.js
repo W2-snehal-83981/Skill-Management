@@ -13,6 +13,8 @@ router.get('/',getEmployeeWithTraining);
 
 router.get('/skills',getAllSkills);  //get all skills from table
 
+router.get('/audit',auditRecord);  //for audit
+
 router.get('/:emp_id', getEmployeeProfile);  //get emp by id
 
 router.put('/status/:emp_id',updateStatus);     //update status
@@ -20,7 +22,7 @@ router.put('/status/:emp_id',updateStatus);     //update status
 router.put('/editemp/:emp_id',updateEmployee);  //update emp
 
 router.delete('/delemp/:emp_id', deleteEmployee);  //delete employee
-//router.post('/audit',auditRecord);  //for audit
+
 
 
 

@@ -32,11 +32,27 @@ export class ViewEmployeeComponent {
     this.loadUsers();
   }
 
+  // Transformation function to match expected data structure
+// transformEmployeeData(employeeData: any[]): any[] {
+//   return employeeData.map(employee => ({
+//     emp_id: employee.EmployeeID,
+//     name: employee.EmployeeName,
+//     department_name: employee.DepartmentName,
+//     role: employee.Role,
+//     skill: employee.PrimarySkill,
+//     skill_category: employee.SkillCategory,
+//     skill_level: employee.SkillLevel,
+//     date_of_joining: employee.DateOfJoining,
+//     status: employee.Status,
+//   }));
+// }
+
+
   loadUsers(): void {
-      this.employeeService.getEmployeeByRole(this.selectedRole).subscribe((data) => {
-        this.users = data;
-        console.log(data.role);
-      });
+      // this.employeeService.getEmployeeByRole(this.selectedRole).subscribe((data) => {
+      //   this.users = data;
+      //   console.log(data.role);
+      // });
 
       this.employeeService.getAllEmployee().subscribe((data) => {
           this.users = data;
@@ -46,7 +62,7 @@ export class ViewEmployeeComponent {
   filterEmployees() :void {
    this.selectedRole = this.roleForm.get('role')?.value;
    console.log(this.selectedRole);
-  //  this.loadUsers();
+   
   if (this.selectedRole) {
     this.employeeService.getEmployeeByRole(this.selectedRole).subscribe((data) => {
       this.users = data;

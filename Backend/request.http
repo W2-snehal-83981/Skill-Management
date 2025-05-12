@@ -1,9 +1,10 @@
 ###get Employee
 GET http://localhost:3000/employees/
+//Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXBfaWQiOiJFTVAwMiIsInJvbGUiOiJBZG1pbiIsImlhdCI6MTc0NTkwNzU3MCwiZXhwIjoxNzQ1OTkzOTcwfQ.9NO0Pw1Y3urqObLaWseWXQbr3YM_c7cVTkM7FCmsDXM
 
 ###get employeeByid
 GET http://localhost:3000/employees/EMP01
-//Authorization: Bearer <eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXBfaWQiOiJFTVAwMSIsInJvbGUiOiJFbXBsb3llZSIsImlhdCI6MTc0NTMxNzIyNywiZXhwIjoxNzQ1NDAzNjI3fQ.dJ9d0CTk5sPHpkA5FLk0Q6J5GigQCIGY0jh9MNj2Lmg>
+//Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXBfaWQiOiJFTVAwMSIsInJvbGUiOiJFbXBsb3llZSIsImlhdCI6MTc0NTkwODU1MiwiZXhwIjoxNzQ1OTk0OTUyfQ.dtLO5KpAb9yFtxQNClbENF8Xv9xpFpgRzt2sCwRg0uQ
 
 ###get Employee by role
 GET http://localhost:3000/employees/filter?role=Admin
@@ -12,6 +13,7 @@ Content-Type:  application/json
 
 ###Add employee
 POST http://localhost:3000/auth/register
+//Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXBfaWQiOiJFTVAwMSIsInJvbGUiOiJFbXBsb3llZSIsImlhdCI6MTc0NjUxMDYzNiwiZXhwIjoxNzQ2NTk3MDM2fQ.nqyteL-n74NytoiE7fRUE8x1U4wNzKjnRD1oEXUdUP0
 Content-Type: application/json
 
 {
@@ -39,6 +41,7 @@ Content-Type: application/json
 
 ###reset password
 POST http://localhost:3000/auth/reset-password
+//Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXBfaWQiOiJFTVAwMSIsInJvbGUiOiJFbXBsb3llZSIsImlhdCI6MTc0NTkwODkzNSwiZXhwIjoxNzQ1OTk1MzM1fQ.OySTVqdEfplGpd77eLXB8WVI8X0gE9UKA1WUqNHDFv0
 Content-Type: application/json
 
 {
@@ -51,6 +54,7 @@ Content-Type: application/json
 
 ###edit employee
 PUT http://localhost:3000/employees/editemp/EMP01
+//Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXBfaWQiOiJFTVAwMSIsInJvbGUiOiJFbXBsb3llZSIsImlhdCI6MTc0NTkwNzgxNSwiZXhwIjoxNzQ1OTk0MjE1fQ._2KYjsyL2wesNU2NEAdzGphLtM5InaOdcLaS_aHZ3EY
 Content-Type: application/json
 
 {
@@ -71,18 +75,23 @@ Content-Type: application/json
 ###delete employee
 DELETE http://localhost:3000/employees/delemp/EMP001
 
-###add audit record
-POST http://localhost:3000/audit
-Content-Type: application/json
-
-{
-  "emp_id": "EMP001",
-  "field_changed": "skill_level",
-  "old_value": "Beginner",
-  "new_value": "Intermediate",
-  "changed_by": "admin",
-  "description": "Updated skill level from Beginner to Intermediate"
-}
-
 ###distinct skills
 GET http://localhost:3000/employees/skills
+
+###audit record
+GET http://localhost:3000/employees/audit
+//Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXBfaWQiOiJFTVAwMSIsInJvbGUiOiJFbXBsb3llZSIsImlhdCI6MTc0NjUxMDYzNiwiZXhwIjoxNzQ2NTk3MDM2fQ.nqyteL-n74NytoiE7fRUE8x1U4wNzKjnRD1oEXUdUP0
+
+
+# ###add audit record
+# POST http://localhost:3000/audit
+# Content-Type: application/json
+
+# {
+#   "emp_id": "EMP001",
+#   "field_changed": "skill_level",
+#   "old_value": "Beginner",
+#   "new_value": "Intermediate",
+#   "changed_by": "admin",
+#   "description": "Updated skill level from Beginner to Intermediate"
+# }

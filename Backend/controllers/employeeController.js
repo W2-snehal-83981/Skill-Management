@@ -1,9 +1,9 @@
 const pool = require('../config/db');
-const { authenticate } = require('../middleware/authMiddleware');
+const authenticateJWT = require('../middleware/authMiddleware');
 
 
 // Get Employee Profile by emp_id
-exports.getEmployeeProfile =  async (req, res) => {
+exports.getEmployeeProfile = async (req, res) => {
   const { emp_id } = req.params;
   try {
     const result = await pool.query(`
@@ -142,7 +142,7 @@ exports.deleteEmployee = async (req, res) => {
 
 
 //To show the data Admin Dashboard
-exports.getEmployeeWithTraining = async (req, res) => {
+exports.getEmployeeWithTraining =async (req, res) => {
   try {
     const result = await pool.query(`
       SELECT 
@@ -177,8 +177,8 @@ exports.getEmployeeWithTraining = async (req, res) => {
 exports.getAllSkills = async (req, res) => {
   try {
     const result = await pool.query(`SELECT DISTINCT skill_name FROM Training_Assign`);
-    console.log('Full result object:', result);
-    console.log('Rows:', result.rows);
+    // console.log('Full result object:', result);
+    // console.log('Rows:', result.rows);
     
     if (result.rows.length === 0) {
       return res.status(404).json({ message: 'No skills found' });

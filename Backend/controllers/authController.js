@@ -1,6 +1,7 @@
 const pool = require('../config/db');
 const bcrypt = require("bcrypt");
 const jwt = require('jsonwebtoken');
+const authenticateJWT = require('../middleware/authMiddleware');
 
 //registered employee
 exports.register = async (req,res) => {

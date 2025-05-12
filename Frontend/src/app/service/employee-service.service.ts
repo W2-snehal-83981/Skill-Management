@@ -1,6 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { AuthService } from './auth-service.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,14 +10,24 @@ export class EmployeeService {
 
   private URL = 'http://localhost:3000';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private authService: AuthService) { }
 
   //get all users
   getAllEmployee():Observable<any> {
+    // const token = this.authService.getToken();
+    // const headers = new HttpHeaders({
+    //   'Authorization': `Bearer ${token}`
+    // });
+    // return this.http.get(`${this.URL}/employees/`,{headers});
     return this.http.get(`${this.URL}/employees/`);
   }
 
   getEmployeeById(id:string): Observable<any> {
+    // const token = this.authService.getToken();
+    // const headers = new HttpHeaders({
+    //   'Authorization': `Bearer ${token}`
+    // });
+    //return this.http.get(`${this.URL}/employees/${id}`,{headers});
     return this.http.get(`${this.URL}/employees/${id}`);
   }
 
@@ -25,6 +36,10 @@ export class EmployeeService {
   }
 
   addEmployee(employee:any): Observable<any> {
+    // const token = this.authService.getToken();
+    // const headers = new HttpHeaders({
+    //   'Authorization': `Bearer ${token}`
+    // });
     return this.http.post(`${this.URL}/auth/register`,employee);
   }
 
@@ -34,6 +49,10 @@ export class EmployeeService {
 
    //reset Password
   resetPassword(data: {email:string, newPassword: string, confirmPassword:string}): Observable<any> {
+    // const token = this.authService.getToken();
+    // const headers = new HttpHeaders({
+    //   'Authorization': `Bearer ${token}`
+    // });
     return this.http.post(`${this.URL}/auth/reset-password`,data);
   }
 
@@ -42,7 +61,11 @@ export class EmployeeService {
   }
 
   updateEmployee(id: string, employeeData: any): Observable<any> {
-    //console.log('updateEmployee:', { employeeData });
+    // const token = this.authService.getToken();
+    // const headers = new HttpHeaders({
+    //   'Authorization': `Bearer ${token}`
+    // });
+    // return this.http.put(`${this.URL}/employees/editemp/${id}`, employeeData,{headers});
     return this.http.put(`${this.URL}/employees/editemp/${id}`, employeeData);
   }
 
@@ -57,5 +80,13 @@ export class EmployeeService {
 
   getAllSkills(): Observable <any> {
     return this.http.get(`${this.URL}/employees/skills`);
+  }
+
+  completedTrainings(): Observable <any> {
+    // const token = this.authService.getToken();
+    // const headers = new HttpHeaders({
+    //   'Authorization': `Bearer ${token}`
+    // });
+    return this.http.get(`${this.URL}/employees/audit`);
   }
 }

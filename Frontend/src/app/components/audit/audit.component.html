@@ -1,0 +1,59 @@
+<div class="container mt-4">
+    <h2 class="text-center mb-4">Audit & Training Records</h2>
+  
+    <!-- Filter Form  -->
+    <!-- <form [formGroup]="filterForm">
+      <div class="row mb-4">
+        <div class="col-md-4">
+          <label for="emp_id" class="form-label">Employee ID</label>
+          <input type="text" class="form-control" id="emp_id" formControlName="emp_id">
+        </div>
+  
+        <div class="col-md-4">
+          <label for="skill" class="form-label">Skill</label>
+          <input type="text" class="form-control" id="skill" formControlName="skill">
+        </div>
+  
+        <div class="col-md-4">
+          <label for="skill_level" class="form-label">Skill Level</label>
+          <input type="text" class="form-control" id="skill_level" formControlName="skill_level">
+        </div>
+      </div>
+  
+      <button type="submit" class="btn btn-primary" [disabled]="filterForm.invalid">Apply Filters</button>
+    </form> -->
+  
+    <!-- Audit Table -->
+    <div>
+      <table class="table table-striped table-bordered">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Employee ID</th>
+            <th scope="col">Employee Name</th>
+            <th scope="col">Skill</th>
+            <th scope="col">Skill Level</th>
+            <th scope="col">Training Link</th>
+            <th scope="col">Training Completion Time</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let record of auditRecords; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>{{ record.emp_id }}</td>
+            <td>{{ record.name }}</td>
+            <td>{{ record.skill }}</td>
+            <td>{{ record.skill_level }}</td>
+            <td><a href="{{ record.training_link }}" target="_blank">{{ record.training_link }}</a></td>
+            <td>{{ record.training_completion_time | date:'short' }}</td>
+          </tr>
+        </tbody>
+      </table>
+  
+      <!-- No Records Found Message -->
+      <div *ngIf="auditRecords.length === 0" class="alert alert-warning" role="alert">
+        No audit records found.
+      </div>
+    </div>
+  </div>
+  

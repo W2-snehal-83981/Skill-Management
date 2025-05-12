@@ -43,8 +43,8 @@ export class LoginComponent {
 
     
     this.employeeService.login(email, password)?.subscribe({
-      next: (response) => {
-        const { password, ...userWithoutPassword } = response.userData;
+       next: (response) => {
+         const { password, ...userWithoutPassword } = response.userData;
 
       console.log('Login successful', response);
       //localStorage.setItem('user', JSON.stringify(response.userData)); //after login user store in localstorage
